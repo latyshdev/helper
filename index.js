@@ -9,6 +9,7 @@ const YEAR = DAY * 365;
 const LEAP_YEAR = DAY * 366;
 
 /* ========================================================================= */
+// Time
 exports.pause = pause;
 exports.SECOND = SECOND;
 exports.MINUTE = MINUTE;
