@@ -1,1 +1,0 @@
-const playwright = require('playwright@latest');
