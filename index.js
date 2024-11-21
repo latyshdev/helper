@@ -1,0 +1,1 @@
+exports.time = require('./src/time');
