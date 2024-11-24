@@ -8,8 +8,10 @@ const DAY = HOUR * 24;
 const WEEK = DAY * 7;
 const YEAR = DAY * 365;
 const LEAP_YEAR = DAY * 366;
-const dateNowLocalTimeString = (locales,  options) => new Date(Date.now()).toLocaleTimeString(locales,  options);
-const dateNowLocaleString = (locales,  options) => new Date(Date.now()).toLocaleString(locales,  options);
+const dateNowLocalTimeString = (locales,  options) => new Date(
+  Date.now()).toLocaleTimeString(locales,  options);
+const dateNowLocaleString = (locales,  options) => new Date(
+  Date.now()).toLocaleString(locales,  options);
 
 /* ========================================================================= */
 // Time export
