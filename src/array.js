@@ -40,9 +40,15 @@ const splitArray = (inputArray, itemsPerChunk) => {
 };
 
 /* ========================================================================= */
+function randomIndexArray(array){
+  return randomBetweenInt(0, array.length);
+};
+
+/* ========================================================================= */
 // Array exports
 exports.shuffle = shuffle;
 exports.splitArray = splitArray;
+exports.randomIndexArray = randomIndexArray;
 
 /* ========================================================================= */
 // Array tests
