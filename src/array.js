@@ -45,10 +45,17 @@ function randomIndexArray(array){
 };
 
 /* ========================================================================= */
+function randomElementOfArray(array){
+  return array[math.randomBetweenInt(0, array.length - 1)];
+};
+
+
+/* ========================================================================= */
 // Array exports
 exports.shuffle = shuffle;
 exports.splitArray = splitArray;
 exports.randomIndexArray = randomIndexArray;
+exports.randomElementOfArray = randomElementOfArray;
 
 /* ========================================================================= */
 // Array tests
@@ -95,5 +102,15 @@ exports.randomIndexArray = randomIndexArray;
 
 
 /*
-  
+  const {randomElementOfArray} = require('./src/array');
+
+  let arr = [
+    1, 2, 3,
+    4, [1,2],
+    {5: 6}, 7, 8,
+    9, 10 
+  ]
+
+  console.log("length", arr.length);
+  for (let i = 0; i < 100; i++) console.log(randomElementOfArray(arr))
 */ 
