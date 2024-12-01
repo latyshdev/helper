@@ -41,7 +41,7 @@ const splitArray = (inputArray, itemsPerChunk) => {
 
 /* ========================================================================= */
 function randomIndexArray(array){
-  return randomBetweenInt(0, array.length);
+  return math.randomBetweenInt(0, array.length - 1);
 };
 
 /* ========================================================================= */
@@ -78,3 +78,22 @@ exports.randomIndexArray = randomIndexArray;
   console.log(splitArray(arr, 2)) // [ [ 1, 2 ], [ 3, 4 ], [ [ 1, 2 ], { '5': 6 } ], [ 7, 8 ], [ 9, 10 ] ]
   console.log(splitArray(arr, 5)) // [ [ 1, 2, 3, 4, [ 1, 2 ] ], [ { '5': 6 }, 7, 8, 9, 10 ] ]
 */
+
+/*
+  const {randomIndexArray} = require('./src/array');
+
+  let arr = [
+    1, 2, 3,
+    4, [1,2],
+    {5: 6}, 7, 8,
+    9, 10 
+  ]
+
+  console.log("length", arr.length);
+  for (let i = 0; i < 100; i++) console.log(randomIndexArray(arr)) 
+*/
+
+
+/*
+  
+*/ 
