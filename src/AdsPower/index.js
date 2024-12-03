@@ -13,7 +13,8 @@ const browserStatusBySN = async (userid) => {
     if (response?.data?.data) return response.data.data;
     return null;
   } catch (err) {
-      console.error("browserStatusBySN ERROR:", err.message);
+      console.log(`browserStatusBySN ERROR: ${err.message}`);
+      console.error(err);
       return null;
   }
 };
