@@ -1,4 +1,5 @@
 const {axiosRequest} = require('./../request.js');
+const console = require('./../logger.js');
 const Config = require('./../../configs/ads.json');
 
 /* ========================================================================= */
@@ -10,8 +11,12 @@ const browserStatusBySN = async (serialNumber) => {
     const url = `${Config.API_ENDPOINT}:${Config.API_PORT}` + 
       `/api/v1/browser/active?serial_number=${serialNumber}`;
     const response = await axiosRequest(url, requestConfig);
+    if (response?.data.code === -1) {
+      console.warn(response?.data);
+      return null;
+    }
     if (response?.data?.data) return response.data.data;
-    // console.info(response.data);
+    // console.log(response.data);
     return null;
   } catch (err) {
       console.log(`browserStatusBySN ERROR: ${err.message}`);
@@ -29,11 +34,16 @@ async function browserCloseBySN (serialNumber) {
     const url = `${Config.API_ENDPOINT}:${Config.API_PORT}` + 
       `/api/v1/browser/stop?serial_number=${serialNumber}`;
     const response = await axiosRequest(url, requestConfig);
+    console.log(response.data);
+    if (response?.data.code === -1) {
+      console.warn(response?.data);
+      return null;
+    }
     if (response?.data) return response.data;
     return null;
   } catch (err) {
       console.log(`browserStatusBySN ERROR: ${err.message}`);
-      // console.error(err);
+      console.error(err);
       return null;
   }
 }
@@ -49,6 +59,7 @@ async function browserOpenBySN (serialNumber) {
     requestConfig.params = Config.start_request;
     requestConfig.params.serial_number = serialNumber;
     const response = await axiosRequest(url, requestConfig);
+    if (response?.data.code === -1) return null;
     if (response?.data) return response.data;
     return null;
   } catch (err) {
