@@ -2,7 +2,7 @@ const {axiosRequest} = require('./../request.js');
 const Config = require('./../../configs/ads.json');
 
 /* ========================================================================= */
-// Returns
+// Returns status, ws or null
 const browserStatusBySN = async (userid) => {
   try {
     const requestConfig = {};
@@ -13,7 +13,8 @@ const browserStatusBySN = async (userid) => {
     if (response?.data?.data) return response.data.data;
     return null;
   } catch (err) {
-      throw err.message;
+      console.error("browserStatusBySN ERROR:", err.message);
+      return null;
   }
 };
 
