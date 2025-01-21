@@ -1,5 +1,5 @@
 const {axiosRequest} = require('./../request.js');
-const console = require('./../logger.js');
+const logger = require('./../logger.js');
 const Config = require('./../../configs/ads.json');
 
 /* ========================================================================= */
@@ -12,15 +12,15 @@ const browserStatusBySN = async (serialNumber) => {
       `/api/v1/browser/active?serial_number=${serialNumber}`;
     const response = await axiosRequest(url, requestConfig);
     if (response?.data.code === -1) {
-      console.warn(response?.data);
+      logger.warn(response?.data);
       return null;
     }
     if (response?.data?.data) return response.data.data;
-    // console.log(response.data);
+    // logger.log(response.data);
     return null;
   } catch (err) {
-      console.log(`browserStatusBySN ERROR: ${err.message}`);
-      // console.error(err);
+      logger.log(`browserStatusBySN ERROR: ${err.message}`);
+      // logger.error(err);
       return null;
   }
 };
@@ -34,16 +34,16 @@ async function browserCloseBySN (serialNumber) {
     const url = `${Config.API_ENDPOINT}:${Config.API_PORT}` + 
       `/api/v1/browser/stop?serial_number=${serialNumber}`;
     const response = await axiosRequest(url, requestConfig);
-    console.log(response.data);
+    logger.log(response.data);
     if (response?.data.code === -1) {
-      console.warn(response?.data);
+      logger.warn(response?.data);
       return null;
     }
     if (response?.data) return response.data;
     return null;
   } catch (err) {
-      console.log(`browserStatusBySN ERROR: ${err.message}`);
-      console.error(err);
+      logger.log(`browserStatusBySN ERROR: ${err.message}`);
+      logger.error(err);
       return null;
   }
 }
@@ -63,8 +63,8 @@ async function browserOpenBySN (serialNumber) {
     if (response?.data) return response.data;
     return null;
   } catch (err) {
-      console.log(`browserStatusBySN ERROR: ${err.message}`);
-      // console.error(err);
+      logger.log(`browserStatusBySN ERROR: ${err.message}`);
+      logger.error(err);
       return null;
   }
 }
@@ -82,7 +82,7 @@ exports.browserOpenBySN = browserOpenBySN;
   const Ads = require('./src/AdsPower/index')
 
   ;(async () => {
-    console.log(await Ads.browserStatusBySN(`2`).catch(err => err)); // CLOSED: { status: 'Inactive' }
-    console.log(await Ads.browserStatusBySN(`1`).catch(err => err)); // CLOSED: { status: 'Active', ws: {}, debug_port /// }
+    logger.log(await Ads.browserStatusBySN(`2`).catch(err => err)); // CLOSED: { status: 'Inactive' }
+    logger.log(await Ads.browserStatusBySN(`1`).catch(err => err)); // CLOSED: { status: 'Active', ws: {}, debug_port /// }
   })();
 */
