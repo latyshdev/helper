@@ -161,6 +161,88 @@ async function elementValue (page, element) {
 }
 
 /* ========================================================================= */
+async function maximizeWindow(BOT) {
+  if (BOT.browser) {
+      try {
+          let page = false;
+          const pages = await BOT.browser.pages();
+          
+          for await (let bpage of pages) {
+              const target = await bpage.target();
+              // console.log(bpage.url(), target.type());
+              const session = await bpage.target().createCDPSession();
+              const {windowId} = await session.send('Browser.getWindowForTarget')
+                .catch(err => false);
+              // console.log("windowId", windowId);
+              if (windowId) {
+                  page = bpage;
+                  break;
+              }
+          }
+
+          if (!page) {
+              page = await BOT.browser.newPage();
+          }
+
+          // console.log(page.url());
+          const session = await page.target().createCDPSession();
+
+          const {windowId} = await session.send('Browser.getWindowForTarget');
+          // console.log("windowId", windowId);
+
+          await session.send('Browser.setWindowBounds', 
+            {windowId, bounds: {windowState: 'maximized'}});
+          return true;
+      } catch (err) {
+          console.log("ERROR: maximizeWindow", err.message);
+          return false;  
+      }
+  }
+  return false; 
+}
+
+/* ========================================================================= */
+async function minimizeWindow(BOT) {
+  if (BOT.browser) {
+      try {
+          let page = false;
+          const pages = await BOT.browser.pages();
+          
+          for await (let bpage of pages) {
+              const target = await bpage.target();
+              // console.log(bpage.url(), target.type());
+              const session = await bpage.target().createCDPSession();
+              const {windowId} = await session.send('Browser.getWindowForTarget')
+                .catch(err => false);
+              // console.log("windowId", windowId);
+              if (windowId) {
+                  page = bpage;
+                  break;
+              }
+          }
+
+          if (!page) {
+              page = await BOT.browser.newPage();
+          }
+
+          // console.log(page.url());
+          const session = await page.target().createCDPSession();
+
+          const {windowId} = await session.send('Browser.getWindowForTarget');
+          // console.log("windowId", windowId);
+
+          await session.send('Browser.setWindowBounds', 
+            {windowId, bounds: {windowState: 'minimized'}});
+          return true;
+      } catch (err) {
+          console.log("ERROR: minimizeWindow", err.message);
+          return false;  
+      }
+  }
+  return false; 
+}
+
+/* ========================================================================= */
 // puppeteer exports
 exports.CreateBrowser = CreateBrowser;
 exports.connectWs = connectWs;
@@ -175,5 +257,7 @@ exports.clickElementByConsole = clickElementByConsole;
 exports.clickElementByLib = clickElementByLib;
 exports.fillInInputWithoutCheck = fillInInputWithoutCheck;
 exports.fillInInputWithCheck = fillInInputWithCheck;
+exports.minimizeWindow = minimizeWindow;
+exports.maximizeWindow = maximizeWindow;
 
 // @TODO click with gcursor ?? 123
