@@ -4,3 +4,4 @@ test_xpath.js
 package-lock.json
 config.json
 configs/*.json
+*.txt
